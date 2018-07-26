@@ -71,17 +71,19 @@ var dashboardContent = `
 				<div class="col-md-3 left_col">
 					<div class="left_col scroll-view">
 						<div class="navbar nav_title" style="border: 0; margin-top: 8px;">
-							<a class="site_title"><i class="fa fa-globe" style="margin-left: 6px"></i> <span>{{.NetworkTitle}} Testnet</span></a>
+							<a class="site_title"><i class="fa fa-briefcase" style="margin-left: 6px"></i> <span>{{.NetworkTitle}} Testnet</span></a>
 						</div>
 						<div class="clearfix"></div>
 						<br />
 						<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 							<div class="menu_section">
 								<ul class="nav side-menu">
-									{{if .EthstatsPage}}<li id="stats_menu"><a onclick="load('#stats')"><i class="fa fa-tachometer"></i> Network Stats</a></li>{{end}}
+									{{if .EthstatsPage}}<li id="stats_menu"><a onclick="load('#stats')"><i class="fa fa-chart"></i> Bezop Network Stats</a></li>{{end}}
 									{{if .ExplorerPage}}<li id="explorer_menu"><a onclick="load('#explorer')"><i class="fa fa-database"></i> Block Explorer</a></li>{{end}}
-									{{if .FaucetPage}}<li id="faucet_menu"><a onclick="load('#faucet')"><i class="fa fa-bath"></i> Crypto Faucet</a></li>{{end}}
-								
+									{{if .FaucetPage}}<li id="faucet_menu"><a onclick="load('#faucet')"><i class="fa fa-archive"></i> Bezop Faucet</a></li>{{end}}
+									{{if .WalletPage}}<li id="wallet_menu"><a onclick="load('#wallet')"><i class="fa fa-check"></i> Bezop Wallet</a></li>{{end}}
+
+
 								</ul>
 							</div>
 						</div>
@@ -118,7 +120,7 @@ var dashboardContent = `
 							<div class="col-md-6">
 								<div class="x_panel">
 									<div class="x_title">
-										<h2><i class="fa fa-laptop" aria-hidden="true"></i> Full node <small>Retains recent data only</small></h2>
+										<h2><i class="fa fa-circle-o" aria-hidden="true"></i> Full node <small>Retains recent data only</small></h2>
 										<div class="clearfix"></div>
 									</div>
 									<div class="x_content">
@@ -139,7 +141,7 @@ var dashboardContent = `
 							<div class="col-md-6">
 								<div class="x_panel">
 									<div class="x_title">
-										<h2><i class="fa fa-mobile" aria-hidden="true"></i> Light node <small>Retrieves data on demand</small></h2>
+										<h2><i class="fa fa-bolt" aria-hidden="true"></i> Light node <small>Get data on demand</small></h2>
 										<div class="clearfix"></div>
 									</div>
 									<div class="x_content">
