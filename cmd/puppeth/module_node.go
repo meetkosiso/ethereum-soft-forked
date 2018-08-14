@@ -42,7 +42,7 @@ ADD genesis.json /genesis.json
 RUN \
   echo 'geth --cache 512 init /genesis.json' > geth.sh && \{{if .Unlock}}
 	echo 'mkdir -p /root/.ethereum/keystore/ && cp /signer.json /root/.ethereum/keystore/' >> geth.sh && \{{end}}
-	echo $'geth --networkid {{.NetworkID}} --cache 512 --port {{.Port}} --maxpeers {{.Peers}} {{.LightFlag}} --ethstats \'{{.Ethstats}}\' {{if .Bootnodes}}--bootnodes {{.Bootnodes}}{{end}} {{if .Etherbase}}--etherbase {{.Etherbase}} --mine --minerthreads 1{{end}} {{if .Unlock}}--unlock 0 --password /signer.pass --mine{{end}} --targetgaslimit {{.GasTarget}} --gasprice {{.GasPrice}}' >> geth.sh
+	echo $'geth --networkid {{.NetworkID}} --rpc --rpcport {{.rpcPort}} --rpcaddr 127.0.0.1 --rpccorsdomain "*" --rpcapi "eth,web3" --cache 512 --port {{.Port}} --maxpeers {{.Peers}} {{.LightFlag}} --ethstats \'{{.Ethstats}}\' {{if .Bootnodes}}--bootnodes {{.Bootnodes}}{{end}} {{if .Etherbase}}--etherbase {{.Etherbase}} --mine --minerthreads 1{{end}} {{if .Unlock}}--unlock 0 --password /signer.pass --mine{{end}} --targetgaslimit {{.GasTarget}} --gasprice {{.GasPrice}}' >> geth.sh
 
 ENTRYPOINT ["/bin/sh", "geth.sh"]
 `
@@ -58,6 +58,7 @@ services:
     ports:
       - "{{.Port}}:{{.Port}}"
       - "{{.Port}}:{{.Port}}/udp"
+			- "{{.rpcPort}}:{{.rpcPort}}"
     volumes:
       - {{.Datadir}}:/root/.ethereum{{if .Ethashdir}}
       - {{.Ethashdir}}:/root/.ethash{{end}}
@@ -98,6 +99,7 @@ func deployNode(client *sshClient, network string, bootnodes []string, config *n
 	template.Must(template.New("").Parse(nodeDockerfile)).Execute(dockerfile, map[string]interface{}{
 		"NetworkID": config.network,
 		"Port":      config.port,
+		"RpcPort": config.rpcPort,
 		"Peers":     config.peersTotal,
 		"LightFlag": lightFlag,
 		"Bootnodes": strings.Join(bootnodes, ","),
@@ -116,6 +118,7 @@ func deployNode(client *sshClient, network string, bootnodes []string, config *n
 		"Ethashdir":  config.ethashdir,
 		"Network":    network,
 		"Port":       config.port,
+		"RpcPort":    config.rpcPort,
 		"TotalPeers": config.peersTotal,
 		"Light":      config.peersLight > 0,
 		"LightPeers": config.peersLight,
@@ -153,6 +156,7 @@ type nodeInfos struct {
 	ethashdir  string
 	ethstats   string
 	port       int
+	rpcPort    int
 	enode      string
 	peersTotal int
 	peersLight int
@@ -169,6 +173,7 @@ func (info *nodeInfos) Report() map[string]string {
 	report := map[string]string{
 		"Data directory":           info.datadir,
 		"Listener port":            strconv.Itoa(info.port),
+		"RPC listener Port":        strconv.Itoa(info.rpcPort),
 		"Peer count (all total)":   strconv.Itoa(info.peersTotal),
 		"Peer count (light nodes)": strconv.Itoa(info.peersLight),
 		"Ethstats username":        info.ethstats,
@@ -251,6 +256,7 @@ func checkNode(client *sshClient, network string, boot bool) (*nodeInfos, error)
 		port:       port,
 		peersTotal: totalPeers,
 		peersLight: lightPeers,
+		rpcPort   : rpcPort,
 		ethstats:   infos.envvars["STATS_NAME"],
 		etherbase:  infos.envvars["MINER_NAME"],
 		keyJSON:    keyJSON,
