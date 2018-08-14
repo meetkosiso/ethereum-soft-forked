@@ -56,7 +56,6 @@ services:
     build: .
     image: {{.Network}}/{{.Type}}
     ports:
-		  - "{{.RPCPort}}:{{.RPCPort}}"
       - "{{.Port}}:{{.Port}}"
       - "{{.Port}}:{{.Port}}/udp"
     volumes:
