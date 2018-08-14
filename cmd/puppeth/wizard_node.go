@@ -48,9 +48,9 @@ func (w *wizard) deployNode(boot bool) {
 	infos, err := checkNode(client, w.network, boot)
 	if err != nil {
 		if boot {
-			infos = &nodeInfos{port: 30303, peersTotal: 512, peersLight: 256, rpcPort: 8545}
+			infos = &nodeInfos{port: 30303, peersTotal: 512, peersLight: 256}
 		} else {
-			infos = &nodeInfos{port: 30303, peersTotal: 50, peersLight: 0, gasTarget: 4.7, gasPrice: 18, rpcPort: 8545}
+			infos = &nodeInfos{port: 30303, peersTotal: 50, peersLight: 0, gasTarget: 4.7, gasPrice: 18}
 		}
 	}
 	existed := err == nil
@@ -91,11 +91,6 @@ func (w *wizard) deployNode(boot bool) {
 	fmt.Println()
 	fmt.Printf("How many light peers to allow connecting? (default = %d)\n", infos.peersLight)
 	infos.peersLight = w.readDefaultInt(infos.peersLight)
-
-	// Figure out which rpcport to listen on
-	fmt.Println()
-	fmt.Printf("Which RPC port to listen on (custom by Bezop)? (default = %d)\n", infos.rpcPort)
-	infos.rpcPort = w.readDefaultInt(infos.rpcPort)
 
 	// Set a proper name to report on the stats page
 	fmt.Println()
