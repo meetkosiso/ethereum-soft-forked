@@ -57,8 +57,8 @@ services:
     image: {{.Network}}/{{.Type}}
     ports:
       - "{{.Port}}:{{.Port}}"
+			- "{{.RPCPort}}:{{.RPCPort}}"
       - "{{.Port}}:{{.Port}}/udp"
-		  - "{{.RPCPort}}:{{.RPCPort}}"
     volumes:
       - {{.Datadir}}:/root/.ethereum{{if .Ethashdir}}
       - {{.Ethashdir}}:/root/.ethash{{end}}
