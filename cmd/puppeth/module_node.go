@@ -58,7 +58,7 @@ services:
     ports:
       - "{{.Port}}:{{.Port}}"
       - "{{.Port}}:{{.Port}}/udp"
-  - "{{.RPCPort}}:{{.RPCPort}}"
+  - "{{.RPCPort}}:{{.RPCPort}}"{{end}}
     volumes:
       - {{.Datadir}}:/root/.ethereum{{if .Ethashdir}}
       - {{.Ethashdir}}:/root/.ethash{{end}}
