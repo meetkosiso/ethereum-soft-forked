@@ -82,7 +82,7 @@ var dashboardContent = `
 									{{if .ExplorerPage}}<li id="explorer_menu"><a onclick="load('#explorer')"><i class="fa fa-database"></i> Block Explorer</a></li>{{end}}
 									<li id="faucet_menu"><a href="http://localhost:3000"><i class="fa fa-archive"></i> Bezop Faucet</a></li>
 									{{if .WalletPage}}<li id="wallet_menu"><a onclick="load('#wallet')"><i class="fa fa-check"></i> Bezop Wallet</a></li>{{end}}
-									<li id="my_explorer"><a href="http://localhost:8000"><i class="fa fa-database"></i> Bezop Explorer</a></li>
+									<li id="my_explorer"><a href="http://104.154.17.156:8000/"><i class="fa fa-database"></i> Bezop Explorer</a></li>
 								</ul>
 							</div>
 						</div>
