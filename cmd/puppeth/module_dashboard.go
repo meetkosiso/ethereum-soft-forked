@@ -80,9 +80,9 @@ var dashboardContent = `
 								<ul class="nav side-menu">
 									{{if .EthstatsPage}}<li id="stats_menu"><a onclick="load('#stats')"><i class="fa fa-chart"></i> Bezop Network Stats</a></li>{{end}}
 									{{if .ExplorerPage}}<li id="explorer_menu"><a onclick="load('#explorer')"><i class="fa fa-database"></i> Block Explorer</a></li>{{end}}
-									<li id="faucet_menu"><a href="http://localhost:3000"><i class="fa fa-archive"></i> Bezop Faucet</a></li>
+									<li id="faucet_menu"><a href="http://35.226.237.31:5000/"><i class="fa fa-archive"></i> Bezop Faucet</a></li>
 									{{if .WalletPage}}<li id="wallet_menu"><a onclick="load('#wallet')"><i class="fa fa-check"></i> Bezop Wallet</a></li>{{end}}
-									<li id="my_explorer"><a href="http://104.154.17.156:8000/"><i class="fa fa-database"></i> Bezop Explorer</a></li>
+									<li id="my_explorer"><a href="http://35.226.35.183:5000/"><i class="fa fa-database"></i> Bezop Explorer</a></li>
 								</ul>
 							</div>
 						</div>
